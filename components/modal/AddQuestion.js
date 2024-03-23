@@ -14,21 +14,23 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
 import OptionTabs from "../tab/OptionTabs"
 import { useState } from "react"
-import { Formik, Form, FieldArray, Field, ErrorMessage } from 'formik';
+import { Formik, Form, FieldArray, Field, ErrorMessage, useFormikContext } from 'formik';
 import * as Yup from 'yup';
 import { X } from "lucide-react"
 
 
 
-const AddQuestion = ({ onSubmitQuestion }) => {
-    const [selectedTab, setSelectedTab] = useState("three");
+const AddQuestion = ({ onSubmitQuestion, ...props }) => {
+    // const [selectedTab, setSelectedTab] = useState("three");
     const [questions, setQuestions] = useState([]);
     const [newQuestion, setNewQuestion] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const initialValues = props.initialValues
+
     // Define Yup validation schema
     const validationSchema = Yup.object().shape({
-        newQuestion: Yup.string().required('Question is required'),
+        question: Yup.string().required('Question is required'),
         options: Yup.array()
             .of(Yup.string())
             .required('At least one option is required')
@@ -36,18 +38,24 @@ const AddQuestion = ({ onSubmitQuestion }) => {
             .max(5, 'Maximum 5 options allowed')
     });
 
-    const handleAddQuestion = () => {
-        onSubmitQuestion()
+    const handleAddQuestion = (values) => {
+        onSubmitQuestion(values)
     }
 
     return (
         <DialogContent className="sm:max-w-[425px]">
             <Formik
-                initialValues={{ newQuestion: '', options: ['', '', ''] }}
-                validationSchema={validationSchema}
-                onSubmit={(values) => handleAddQuestion(values)}
+                initialValues={{
+                    question: initialValues?.question || '',
+                    options: initialValues?.options || ['', '', '']
+                }}
+                // validationSchema={validationSchema}
+                onSubmit={(values, { resetForm }) => {
+                    handleAddQuestion(values);
+                    resetForm()
+                }}
             >
-                {({ values, handleChange, handleBlur, isSubmitting }) => (
+                {({ values, handleChange, handleBlur, isSubmitting, resetForm }) => (
                     <Form>
                         <DialogHeader>
                             <DialogTitle>Add question</DialogTitle>
@@ -57,22 +65,28 @@ const AddQuestion = ({ onSubmitQuestion }) => {
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                             <div className="grid w-full gap-1.5">
-                                <Label htmlFor="message">Your question</Label>
-                                <Textarea placeholder="Type your message here." id="message" />
+                                <Label htmlFor="question">Your question</Label>
+                                <Textarea placeholder="Type your question here." id="question" name="question"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.question}
+                                />
                             </div>
-                            <div >
+                            <div>
                                 <label>Options:</label>
-                                <FieldArray name="options">
+                                <FieldArray name="options" value={values.options}>
                                     {({ insert, remove }) => (
                                         <div className="grid gap-4 py-4">
-                                            {/* <div key={index}>
-                                                    <Field name={`options.${index}`} /> */}
-                                            {values.options.map((option, index) => (
+                                            {values?.options.map((option, index) => (
                                                 <div className="grid grid-cols-12 items-center gap-1.5" key={index}>
                                                     <Input
+                                                        // value={values.}
                                                         name={`options.${index}`}
                                                         id={`options.${index}`} placeholder={`option ${index + 1}`}
                                                         className="col-span-11"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        value={values.options[index]}
                                                     />
                                                     <Button
                                                         variant="ghost" size="icon"
@@ -99,6 +113,9 @@ const AddQuestion = ({ onSubmitQuestion }) => {
                                 <ErrorMessage name="options" component="div" className="error" />
                             </div>
                         </div>
+                        {/* <Button type="submit">
+                            {loading ? 'Adding...' : 'Add Question'}
+                        </Button> */}
                         <DialogFooter>
                             <Button type="submit" disabled={loading}>
                                 {loading ? 'Adding...' : 'Add Question'}

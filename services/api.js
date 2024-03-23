@@ -10,7 +10,6 @@ export const getToken = async (email) => {
         localStorage.setItem(TOKEN_KEY, token);
         return token;
     } catch (error) {
-        console.error('Error fetching token:', error);
         throw error;
     }
 };
@@ -25,7 +24,6 @@ export const getQuestions = async () => {
         });
         return response.data;
     } catch (error) {
-        console.error('Error fetching questions:', error);
         throw error;
     }
 };
@@ -41,7 +39,36 @@ export const addQuestion = async (questionData) => {
         });
         return response.data;
     } catch (error) {
-        console.error('Error adding question:', error);
+        throw error;
+    }
+};
+
+export const editQuestion = async (questionData) => {
+    try {
+        const token = localStorage.getItem(TOKEN_KEY);
+        const response = await axios.post(`${BASE_URL}/questions`, questionData, {
+            headers: {
+                'Token': token,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteQuestion = async (questionData) => {
+    try {
+        const token = localStorage.getItem(TOKEN_KEY);
+        const response = await axios.post(`${BASE_URL}/questions`, questionData, {
+            headers: {
+                'Token': token,
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
         throw error;
     }
 };

@@ -9,18 +9,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Pencil, Trash2 } from "lucide-react"
 import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
-// import {
-//     Select,
-//     SelectContent,
-//     SelectItem,
-//     SelectTrigger,
-//     SelectValue,
-// } from "@/components/ui/select"
+
 
 const ExistingQuestionsCard = ({ data }) => {
     return (
@@ -42,11 +34,15 @@ const ExistingQuestionsCard = ({ data }) => {
             <CardFooter className="flex justify-end">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="ghost"><Pencil /></Button>
+                        <Button variant="ghost">
+                            <Pencil />
+                        </Button>
                     </DialogTrigger>
-                    <AddQuestion label='edit' data={data} />
+                    <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} />
                 </Dialog>
-                <Button variant="ghost" className='text-red-500'><Trash2 /></Button>
+                <Button variant="ghost" className='text-red-500'>
+                    <Trash2 />
+                </Button>
             </CardFooter>
         </Card>
     )
