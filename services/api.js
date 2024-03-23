@@ -43,10 +43,10 @@ export const addQuestion = async (questionData) => {
     }
 };
 
-export const editQuestion = async (questionData) => {
+export const editQuestion = async (questionId, updatedQuestionData) => {
     try {
         const token = localStorage.getItem(TOKEN_KEY);
-        const response = await axios.post(`${BASE_URL}/questions`, questionData, {
+        const response = await axios.put(`${BASE_URL}/questions/${questionId}`, updatedQuestionData, {
             headers: {
                 'Token': token,
                 'Content-Type': 'application/json'
@@ -58,13 +58,12 @@ export const editQuestion = async (questionData) => {
     }
 };
 
-export const deleteQuestion = async (questionData) => {
+export const deleteQuestion = async (questionId) => {
     try {
         const token = localStorage.getItem(TOKEN_KEY);
-        const response = await axios.post(`${BASE_URL}/questions`, questionData, {
+        const response = await axios.delete(`${BASE_URL}/questions/${questionId}`, {
             headers: {
-                'Token': token,
-                'Content-Type': 'application/json'
+                'Token': token
             }
         });
         return response.data;
@@ -72,5 +71,3 @@ export const deleteQuestion = async (questionData) => {
         throw error;
     }
 };
-
-//  Implement functions for updating and deleting questions

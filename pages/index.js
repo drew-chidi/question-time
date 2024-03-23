@@ -75,15 +75,19 @@ export default function Home() {
       className={`${inter.className}`}
     >
       <div className="mt-10">
-        <h1 className="text-center">Question Management</h1>
+        {/* <h1 className="text-center">Question Management</h1> */}
         {/* Display existing questions */}
-        <div className="flex justify-end my-4">
+        <div className="flex justify-end my-4 mb-10">
           <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Plus className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
+            <div className="inline-flex gap-3 items-center">
+
+              <DialogTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </DialogTrigger>
+              <span>Add question</span>
+            </div>
             <AddQuestion initialValues={{ question: '', options: ['', '', ''] }} onSubmitQuestion={handleAddQuestion} />
           </Dialog>
         </div>
@@ -91,11 +95,11 @@ export default function Home() {
           {/* <h2 className="border-b-2 inline-block mb-8">Existing Questions</h2> */}
           {questions?.length > 0 ?
             <ul>
-              {questions.map(question => (
-                <li key={question.id}>
-                  <ExistingQuestionsCard data={question} />
-                </li>
-              ))}
+              <li className="flex gap-4 flex-wrap justify-center">
+                {questions.map(question => (
+                  <ExistingQuestionsCard data={question} key={question.id} />
+                ))}
+              </li>
             </ul>
             :
             <div className="flex flex-col justify-center items-center">
