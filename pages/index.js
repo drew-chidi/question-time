@@ -16,27 +16,23 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
   const router = useRouter();
   const [questions, setQuestions] = useState([]);
-  const [newQuestion, setNewQuestion] = useState('');
-  const [options, setOptions] = useState(['', '', '']);
   const [loading, setLoading] = useState(false);
 
-  console.log('questions', questions)
-
+  const fetchQuestionsData = async () => {
+    try {
+      const questionsData = await getQuestions();
+      // Convert object into array of objects
+      const questionsArray = Object.keys(questionsData).map(key => ({
+        id: key,
+        ...questionsData[key]
+      }));
+      setQuestions(questionsArray);
+    } catch (error) {
+      console.error('Error fetching questions:', error);
+      // Handle error (e.g., display error message)
+    }
+  };
   useEffect(() => {
-    const fetchQuestionsData = async () => {
-      try {
-        const questionsData = await getQuestions();
-        // Convert object into array of objects
-        const questionsArray = Object.keys(questionsData).map(key => ({
-          id: key,
-          ...questionsData[key]
-        }));
-        setQuestions(questionsArray);
-      } catch (error) {
-        console.error('Error fetching questions:', error);
-        // Handle error (e.g., display error message)
-      }
-    };
 
     fetchQuestionsData();
 
@@ -47,7 +43,6 @@ export default function Home() {
   }, []);
 
   const handleAddQuestion = async (values) => {
-    console.log('values', values)
     setLoading(true);
     try {
       const questionData = {
@@ -57,19 +52,15 @@ export default function Home() {
       await addQuestion(questionData);
       // Refresh questions list after adding new question
       const updatedQuestionsData = await getQuestions();
-      console.log('updated questions', updatedQuestionsData)
       setQuestions(updatedQuestionsData);
-      // setNewQuestion('');
-      // setOptions(['', '', '']);
+
     } catch (error) {
       console.error('Error adding question:', error);
-      // Handle error (e.g., display error message)
     } finally {
       setLoading(false);
     }
   };
 
-  // Other functions for editing and deleting questions
   return (
     <div
       className={`${inter.className}`}
@@ -97,7 +88,7 @@ export default function Home() {
             <ul>
               <li className="flex gap-4 flex-wrap justify-center">
                 {questions.map(question => (
-                  <ExistingQuestionsCard data={question} key={question.id} />
+                  <ExistingQuestionsCard data={question} key={question.id} onQuestionChange={fetchQuestionsData} />
                 ))}
               </li>
             </ul>

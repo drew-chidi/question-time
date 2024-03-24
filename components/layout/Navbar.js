@@ -8,9 +8,9 @@ const Navbar = () => {
                 <div className='flex font-extrabold text-3xl'>
                     <p className='text-blue-500'>Q</p><p className='text-red-500'>T</p>
                 </div>
-                <div>
+                {/* <div>
                     <p>Question Management</p>
-                </div>
+                </div> */}
             </div>
         </div>
     )

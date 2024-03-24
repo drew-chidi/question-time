@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,39 +13,36 @@ import { Pencil, Trash2 } from "lucide-react"
 import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
 import { deleteQuestion, editQuestion } from "@/services/api"
+import toast from "react-hot-toast"
 
 
-const ExistingQuestionsCard = ({ data }) => {
+const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
+    const [loading, setLoading] = useState(false);
+
     const questionId = data.id
-    console.log('data', questionId)
     const handleEditQuestion = async (values) => {
-        // console.log('values', values)
-        // setLoading(true);
+        setLoading(true);
         try {
             const questionData = {
                 question: values.question,
                 options: values.options.filter(option => option.trim() !== '')
             };
             await editQuestion(questionId, questionData);
+            toast.success('Updated successfully!')
+
             // Refresh questions list after adding new question
-            // const updatedQuestionsData = await getQuestions();
-            // console.log('updated questions', updatedQuestionsData)
-            // setQuestions(updatedQuestionsData);
-            // setNewQuestion('');
-            // setOptions(['', '', '']);
+            onQuestionChange()
         } catch (error) {
-            console.error('Error adding question:', error);
-            // Handle error (e.g., display error message)
+            toast.error(`This didn't work. ${error}`)
         } finally {
-            // setLoading(false);
+            setLoading(false);
         }
     };
     // Function to handle deleting a question
     const handleDeleteQuestion = async () => {
         try {
-            await deleteQuestion(questionId); // Call the API to delete the question
-            // Optionally, update the state or perform any necessary actions after deletion
-            console.log('Question deleted successfully');
+            await deleteQuestion(questionId);
+            onQuestionChange()
         } catch (error) {
             console.error('Error deleting question:', error);
             // Handle error (e.g., display error message)
