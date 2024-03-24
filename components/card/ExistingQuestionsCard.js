@@ -20,6 +20,7 @@ const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
     const [loading, setLoading] = useState(false);
 
     const questionId = data.id
+
     const handleEditQuestion = async (values) => {
         setLoading(true);
         try {
@@ -29,8 +30,6 @@ const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
             };
             await editQuestion(questionId, questionData);
             toast.success('Updated successfully!')
-
-            // Refresh questions list after adding new question
             onQuestionChange()
         } catch (error) {
             toast.error(`This didn't work. ${error}`)
@@ -38,22 +37,20 @@ const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
             setLoading(false);
         }
     };
-    // Function to handle deleting a question
+
     const handleDeleteQuestion = async () => {
         try {
             await deleteQuestion(questionId);
             onQuestionChange()
         } catch (error) {
-            console.error('Error deleting question:', error);
-            // Handle error (e.g., display error message)
+            toast.error('Error deleting question:', error)
         }
     };
 
     return (
-        // <Card className="">
         <Card className="w-[300px]">
             <CardHeader className='pb-4'>
-                <CardTitle className='text-lg'>{data.question}</CardTitle>
+                <CardTitle className='text-base leading-[1.4rem]'>{data.question}</CardTitle>
             </CardHeader>
             <CardContent className='pb-4'>
                 <div className="grid w-full items-center gap-4">

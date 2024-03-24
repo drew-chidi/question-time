@@ -14,28 +14,30 @@ import ExistingQuestionsCard from "@/components/card/ExistingQuestionsCard";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
   const router = useRouter();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const fetchQuestionsData = async () => {
+    setLoading(true);
     try {
       const questionsData = await getQuestions();
-      // Convert object into array of objects
       const questionsArray = Object.keys(questionsData).map(key => ({
         id: key,
         ...questionsData[key]
       }));
       setQuestions(questionsArray);
     } catch (error) {
-      console.error('Error fetching questions:', error);
-      // Handle error (e.g., display error message)
+      toast.error('Error fetching questions:', error)
+    } finally {
+      setLoading(false)
     }
   };
+
   useEffect(() => {
-
     fetchQuestionsData();
-
     const token = localStorage.getItem('qt_token');
     if (!token) {
       router.push('/token');
@@ -47,15 +49,18 @@ export default function Home() {
     try {
       const questionData = {
         question: values.question,
-        options: values.options.filter(option => option.trim() !== '') // Remove empty options
+        options: values.options.filter(option => option.trim() !== '')
       };
-      await addQuestion(questionData);
+      const response = await addQuestion(questionData);
       // Refresh questions list after adding new question
-      const updatedQuestionsData = await getQuestions();
-      setQuestions(updatedQuestionsData);
-
+      if (response) {
+        console.log('add question response', response)
+        fetchQuestionsData()
+        setOpen(false)
+      }
     } catch (error) {
-      console.error('Error adding question:', error);
+      // console.error('Error adding question:', error);
+      toast.error('Error adding question:', error)
     } finally {
       setLoading(false);
     }
@@ -69,7 +74,7 @@ export default function Home() {
         {/* <h1 className="text-center">Question Management</h1> */}
         {/* Display existing questions */}
         <div className="flex justify-end my-4 mb-10">
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <div className="inline-flex gap-3 items-center">
 
               <DialogTrigger asChild>
@@ -83,7 +88,6 @@ export default function Home() {
           </Dialog>
         </div>
         <div >
-          {/* <h2 className="border-b-2 inline-block mb-8">Existing Questions</h2> */}
           {questions?.length > 0 ?
             <ul>
               <li className="flex gap-4 flex-wrap justify-center">

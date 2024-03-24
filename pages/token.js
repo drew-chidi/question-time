@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const TokenPage = () => {
     const [email, setEmail] = useState('');
@@ -22,8 +23,7 @@ const TokenPage = () => {
             setEmail('')
 
         } catch (error) {
-            console.error('Error retrieving token:', error);
-            // Handle error (e.g., display error message)
+            toast.error('Error retrieving token:', error)
         } finally {
             setLoading(false);
         }
