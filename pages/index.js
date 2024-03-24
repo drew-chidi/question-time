@@ -82,7 +82,7 @@ export default function Home() {
             <div className="inline-flex gap-3 items-center">
 
               <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className='w-8 h-8'>
                   <Plus className="h-4 w-4" />
                 </Button>
               </DialogTrigger>

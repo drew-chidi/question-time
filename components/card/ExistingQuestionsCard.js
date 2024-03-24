@@ -72,13 +72,13 @@ const ExistingQuestionsCard = ({ data }) => {
             <CardFooter className="flex justify-end gap-1">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="ghost" className='p-0 text-blue-500'>
+                        <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
                             <Pencil />
                         </Button>
                     </DialogTrigger>
                     <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
                 </Dialog>
-                <Button variant="ghost" className='text-red-500 p-0' onClick={handleDeleteQuestion}>
+                <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
                     <Trash2 />
                 </Button>
             </CardFooter>
