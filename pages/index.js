@@ -107,7 +107,7 @@ export default function Home() {
               <div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button>
+                    <Button className='bg-blue-500'>
                       <FilePlus className="mr-2 h-4 w-4" /> Add Question
                     </Button>
                   </DialogTrigger>
@@ -117,31 +117,6 @@ export default function Home() {
             </div>
           }
         </div>
-
-        {/* Form for adding new question */}
-        {/* <h2>Add New Question</h2>
-        <input
-          type="text"
-          value={newQuestion}
-          onChange={(e) => setNewQuestion(e.target.value)}
-          placeholder="Enter new question"
-        />
-        {options.map((option, index) => (
-          <input
-            key={index}
-            type="text"
-            value={option}
-            onChange={(e) => {
-              const newOptions = [...options];
-              newOptions[index] = e.target.value;
-              setOptions(newOptions);
-            }}
-            placeholder={`Option ${index + 1}`}
-          />
-        ))}
-        <button onClick={handleAddQuestion} disabled={loading}>
-          {loading ? 'Adding...' : 'Add Question'}
-        </button> */}
       </div>
     </div>
   );
