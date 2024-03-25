@@ -28,7 +28,6 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
 
     const { initialValues } = props
 
-    // Define Yup validation schema
     const validationSchema = Yup.object().shape({
         question: Yup.string()
             .required('Question is required')
@@ -36,11 +35,17 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
         options: Yup.array()
             .of(Yup.string())
             .required('At least 3 options are required')
-            .min(3, 'Minimum 3 options required')
+            .test('at-least-three-options', 'At least 3 options are required', (options) => {
+                const nonEmptyOptions = options.filter(option => typeof option === 'string' && option.trim() !== '');
+                return nonEmptyOptions.length >= 3;
+            })
             .max(5, 'Maximum 5 options allowed')
     });
 
+
+
     const handleAddQuestion = (values) => {
+        console.log('form values', values)
         onSubmitQuestion(values)
     }
 
@@ -81,31 +86,34 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                                     {({ push, insert, remove }) => (
                                         <div className="grid gap-4 pt-2 pb-4">
                                             {values?.options.map((option, index) => (
-                                                <div className="grid grid-cols-12 items-center gap-1.5" key={index}>
-                                                    <Input
-                                                        name={`options.${index}`}
-                                                        id={`options.${index}`} placeholder={`option ${index + 1}`}
-                                                        className="col-span-11"
-                                                        onChange={handleChange}
-                                                        onBlur={handleBlur}
-                                                        value={values.options[index]}
-                                                    />
-                                                    <Button
-                                                        variant="ghost" size="icon"
-                                                        onClick={() => remove(index)}
-                                                        disabled={values.options.length <= 3}
-                                                    >
-                                                        <X />
-                                                    </Button>
+                                                <div key={index}>
+                                                    <div className="grid grid-cols-12 items-center gap-1.5" >
+                                                        <Input
+                                                            name={`options.${index}`}
+                                                            id={`options.${index}`} placeholder={`option ${index + 1}`}
+                                                            className="col-span-11"
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            value={values.options[index]}
+                                                        />
+
+                                                        <Button
+                                                            variant="ghost" size="icon"
+                                                            onClick={() => remove(index)}
+                                                            disabled={values.options.length <= 3}
+                                                        >
+                                                            <X />
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             ))}
                                             <div>
+                                                <ErrorMessage name="options" component="div" className="error text-red-600 text-xs" />
                                                 <Button
                                                     type="button"
-                                                    // onClick={() => insert(values.options.length, '')}
-                                                    onClick={() => push('')}
+                                                    onClick={() => insert(values.options.length, '')}
+                                                    // onClick={() => push('')}
                                                     disabled={values.options.length >= 5}
-                                                    // className={'bg-blue-800'}
                                                     variant='outline'
                                                 >
                                                     Add Option
@@ -114,11 +122,14 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                                         </div>
                                     )}
                                 </FieldArray>
-                                <ErrorMessage name="options" component="div" className="error text-red-600" />
+
                             </div>
                         </div>
                         <DialogFooter>
-                            <Button type="submit" disabled={loading} className={'bg-blue-800'}
+                            <Button type="submit"
+
+                                // disabled={loading} 
+                                className={'bg-blue-500'}
                             >
                                 {loading ? 'Adding...' : 'Add Question'}
                             </Button>

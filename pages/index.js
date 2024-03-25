@@ -92,7 +92,12 @@ export default function Home() {
             <ul>
               <li className="flex gap-4 flex-wrap justify-center">
                 {questions.map(question => (
-                  <ExistingQuestionsCard data={question} key={question.id} onQuestionChange={fetchQuestionsData} />
+                  <ExistingQuestionsCard
+                    data={question}
+                    key={question.id}
+                    onQuestionChange={fetchQuestionsData}
+                    isLoading={loading}
+                    setIsLoading={setLoading} />
                 ))}
               </li>
             </ul>

@@ -14,15 +14,15 @@ import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
 import { deleteQuestion, editQuestion } from "@/services/api"
 import toast from "react-hot-toast"
+import { SkeletonCard } from "./SkeletonCard"
 
 
-const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
-    const [loading, setLoading] = useState(false);
+const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading }) => {
 
     const questionId = data.id
 
     const handleEditQuestion = async (values) => {
-        setLoading(true);
+        setIsLoading(true);
         try {
             const questionData = {
                 question: values.question,
@@ -34,7 +34,7 @@ const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
         } catch (error) {
             toast.error(`This didn't work. ${error}`)
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -47,36 +47,44 @@ const ExistingQuestionsCard = ({ data, onQuestionChange }) => {
         }
     };
 
+    if (isLoading) {
+        return (
+            <SkeletonCard />
+        )
+    }
+
     return (
-        <Card className="w-[300px]">
-            <CardHeader className='pb-4'>
-                <CardTitle className='text-base leading-[1.4rem]'>{data.question}</CardTitle>
-            </CardHeader>
-            <CardContent className='pb-4'>
-                <div className="grid w-full items-center gap-4">
-                    <div className="flex flex-col space-y-1.5">
-                        <ol className="list-decimal list-inside">
-                            {data.options.map((option, index) => (
-                                <li key={index} className="">{option}</li>
-                            ))}
-                        </ol>
+        <>
+            <Card className="w-[300px]">
+                <CardHeader className='pb-4'>
+                    <CardTitle className='text-base leading-[1.4rem]'>{data.question}</CardTitle>
+                </CardHeader>
+                <CardContent className='pb-4'>
+                    <div className="grid w-full items-center gap-4">
+                        <div className="flex flex-col space-y-1.5">
+                            <ol className="list-decimal list-inside">
+                                {data.options.map((option, index) => (
+                                    <li key={index} className="">{option}</li>
+                                ))}
+                            </ol>
+                        </div>
                     </div>
-                </div>
-            </CardContent>
-            <CardFooter className="flex justify-end gap-1">
-                <Dialog>
-                    <DialogTrigger asChild>
-                        <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
-                            <Pencil />
-                        </Button>
-                    </DialogTrigger>
-                    <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
-                </Dialog>
-                <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
-                    <Trash2 />
-                </Button>
-            </CardFooter>
-        </Card>
+                </CardContent>
+                <CardFooter className="flex justify-end gap-1">
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
+                                <Pencil />
+                            </Button>
+                        </DialogTrigger>
+                        <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
+                    </Dialog>
+                    <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
+                        <Trash2 />
+                    </Button>
+                </CardFooter>
+            </Card>
+        </>
     )
 }
 
