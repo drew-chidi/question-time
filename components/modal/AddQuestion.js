@@ -69,7 +69,7 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                             <div>
                                 <label className="text-sm leading-4">Options:</label>
                                 <FieldArray name="options" value={values.options}>
-                                    {({ push, insert, remove }) => (
+                                    {({ insert, remove }) => (
                                         <div className="grid gap-4 pt-2 pb-4">
                                             {values?.options.map((option, index) => (
                                                 <div key={index}>
@@ -112,10 +112,9 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                         </div>
                         <DialogFooter>
                             <Button type="submit"
-                                disabled={loading}
                                 className={'bg-blue-500'}
                             >
-                                {loading ? 'Adding...' : 'Add Question'}
+                                Add Question
                             </Button>
                         </DialogFooter>
                     </Form>

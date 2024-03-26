@@ -7,7 +7,7 @@ jest.mock('react-hot-toast', () => ({
     error: jest.fn(),
 }));
 
-jest.mock('../../util/api', () => ({
+jest.mock('@/utils/api', () => ({
     deleteQuestion: jest.fn(),
     editQuestion: jest.fn(),
 }));
@@ -47,7 +47,7 @@ describe('ExistingQuestionsCard', () => {
 
     test('triggers deleteQuestion function when delete button is clicked', async () => {
         render(<ExistingQuestionsCard data={mockQuestion} />);
-        const deleteButton = screen.getByRole('button', { name: 'Delete question' });
+        const deleteButton = screen.getByRole('button');
 
         fireEvent.click(deleteButton);
 

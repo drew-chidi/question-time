@@ -19,9 +19,7 @@ const TokenPage = () => {
             if (response) {
                 router.push('/');
             }
-            console.log('token response', response)
             setEmail('')
-
         } catch (error) {
             toast.error('Error retrieving token:', error)
         } finally {
@@ -33,7 +31,7 @@ const TokenPage = () => {
         <Card className="max-w-[375px] sm:max-w-md  m-auto
         p-4 mt-16">
             <div className='grid grid-col-4 gap-4'>
-                <h1 className='text-xl sm:text-2xl'>Retrieve Token</h1>
+                <h1 className='text-xl sm:text-2xl'>Retrieve Your Token</h1>
                 <div className='mt-8'>
                     <Input
                         type="email"

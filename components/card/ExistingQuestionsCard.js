@@ -17,7 +17,6 @@ import { SkeletonCard } from "./SkeletonCard"
 
 
 const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading }) => {
-
     const questionId = data.id
 
     const handleEditQuestion = async (values) => {

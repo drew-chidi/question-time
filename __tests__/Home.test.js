@@ -1,12 +1,13 @@
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 import Home from '../pages/index';
 import { getQuestions } from '@/utils/api';
+import { act } from 'react-dom/test-utils';
+
 // Mock useRouter
 jest.mock('next/router', () => ({
     useRouter: jest.fn(),
 }));
-
 
 jest.mock('@/utils/api');
 
