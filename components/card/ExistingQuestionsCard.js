@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardDescription,
     CardFooter,
     CardHeader,
     CardTitle,
@@ -12,7 +11,7 @@ import {
 import { Pencil, Trash2 } from "lucide-react"
 import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
-import { deleteQuestion, editQuestion } from "@/services/api"
+import { deleteQuestion, editQuestion } from "@/util/api"
 import toast from "react-hot-toast"
 import { SkeletonCard } from "./SkeletonCard"
 
@@ -57,7 +56,6 @@ const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading
     }
 
     return (
-        // <Card className="max-w-[300px] h-auto mb-4 overflow-scroll">
         <Card className="w-[250px] h-[200px] flex flex-col overflow-scroll">
             <CardHeader className='pb-4'>
                 <CardTitle className='text-base leading-[1.4rem] font-bold'>{`${data.question}`}</CardTitle>
@@ -76,13 +74,13 @@ const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading
             <CardFooter className="flex justify-end gap-1">
                 <Dialog>
                     <DialogTrigger asChild>
-                        <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
+                        <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4' name='Edit question' role='button' type='button'>
                             <Pencil />
                         </Button>
                     </DialogTrigger>
                     <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
                 </Dialog>
-                <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
+                <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion} name='Delete question' role='button' type='button'>
                     <Trash2 />
                 </Button>
             </CardFooter>

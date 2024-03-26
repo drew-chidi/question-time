@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken, getQuestions, addQuestion, deleteQuestion, updateQuestion } from './api';
+import { getToken, getQuestions, addQuestion, deleteQuestion, editQuestion } from './api';
 
 jest.mock('axios');
 
@@ -37,11 +37,11 @@ describe('API Functions', () => {
         expect(axios.delete).toHaveBeenCalledWith(expect.any(String), expect.any(Object));
     });
 
-    test('updateQuestion function should successfully update question', async () => {
+    test('editQuestion function should successfully update question', async () => {
         const questionId = '1';
         const updatedData = { question: 'Updated question', options: ['Updated Option 1', 'Updated Option 2'] };
         axios.put.mockResolvedValueOnce({});
-        await updateQuestion(questionId, updatedData);
+        await editQuestion(questionId, updatedData);
         expect(axios.put).toHaveBeenCalledWith(expect.any(String), updatedData, expect.any(Object));
     });
 });

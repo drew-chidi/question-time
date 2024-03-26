@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from "next/font/google";
-import { addQuestion, getQuestions } from "@/services/api";
+import { addQuestion, getQuestions } from "@/util/api";
 import { FilePlus, Mail, Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import AddQuestion from "@/components/modal/AddQuestion";
 import ExistingQuestionsCard from "@/components/card/ExistingQuestionsCard";
 import { SkeletonCard } from "@/components/card/SkeletonCard";
+import toast from "react-hot-toast";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -55,7 +56,6 @@ export default function Home() {
       const response = await addQuestion(questionData);
       // Refresh questions list after adding new question
       if (response) {
-        console.log('add question response', response)
         fetchQuestionsData()
         setOpen(false)
       }
