@@ -1,40 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Assessment README
+Overview
+This repository contains the codebase for an assessment project. The project aims to create a web application for managing multichoice questions. Users can add, edit, delete, and view existing questions along with their options.
 
-## Getting Started
+Features
+Add Question: Users can add new multichoice questions with multiple options.
+Edit Question: Users can edit existing questions, including modifying the question itself and its options.
+Delete Question: Users can delete questions they no longer need.
+View Questions: Users can view a list of existing questions along with their options.
+Technologies Used
+Next.js: The frontend framework used for building the web application.
+React: The JavaScript library for building user interfaces.
+Formik: A form library for React to handle form submission and validation.
+Yup: A JavaScript schema builder for value parsing and validation.
+Axios: A promise-based HTTP client for making API requests.
+Tailwind CSS: A utility-first CSS framework for styling the application.
+Getting Started
+To run the project locally, follow these steps:
 
-First, run the development server:
+Clone the repository to your local machine:
 
-```bash
+bash
+Copy code
+git clone <repository-url>
+Navigate to the project directory:
+
+bash
+Copy code
+cd <project-directory>
+Install dependencies:
+
+Copy code
+npm install
+Start the development server:
+
+arduino
+Copy code
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open your browser and visit http://localhost:3000 to view the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Project Structure
+The project directory structure is organized as follows:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+/pages: Contains Next.js page components.
+/components: Contains reusable UI components used across the application.
+/api: Contains API functions for interacting with the backend server.
+/utils: Contains utility functions used within the application.
+/tests: Contains test files for unit and integration testing.
+Testing
+Unit and integration tests are implemented using the Jest testing framework. To run the tests, use the following command:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+bash
+Copy code
+npm test
+Contributing
+Contributions to this project are welcome! To contribute, follow these steps:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Fork the repository.
+Create a new branch for your feature or bug fix: git checkout -b feature-name.
+Make your changes and commit them: git commit -m 'Add new feature'.
+Push to the branch: git push origin feature-name.
+Submit a pull request with a detailed description of your changes.
+License
+This project is licensed under the MIT License.
