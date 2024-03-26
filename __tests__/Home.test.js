@@ -52,10 +52,4 @@ describe('Home Page', () => {
             expect(screen.getByText(/Test question 2/i)).toBeInTheDocument();
         });
     });
-
-    // test('displays "no questions found" message when there are no questions', () => {
-    //     render(<Home />);
-    //     const noQuestionsMessage = screen.getByText(/no questions found/i, { exact: false });
-    //     expect(noQuestionsMessage).toBeInTheDocument();
-    // });
 });
