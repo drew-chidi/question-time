@@ -58,16 +58,16 @@ The project directory structure is organized as follows:
 ## Testing
 Unit and integration tests are implemented using the Jest testing framework. To run the tests, use the following command:
 
-bash
-Copy code
+```bash
 npm test
+```
 
 ## Contributing
 Contributions to this project are welcome! To contribute, follow these steps:
 
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix: '**git checkout -b feature-name**'.
-3. Make your changes and commit them: **git commit -m 'Add new feature'**.
+3. Make your changes and commit them: '**git commit -m 'Add new feature'**'.
 4. Push to the branch: '**git push origin feature-name**'.
 5. Submit a pull request with a detailed description of your changes.
 
