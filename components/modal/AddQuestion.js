@@ -37,7 +37,7 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
     }
 
     return (
-        <DialogContent className="sm:max-w-[425px] mx-4">
+        <DialogContent className="max-w-[360px] sm:max-w-[425px]">
             <Formik
                 initialValues={{
                     question: initialValues?.question || '',
