@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from "next/font/google";
-import { addQuestion, getQuestions } from "@/util/api";
+import { addQuestion, getQuestions } from "@/utils/api";
 import { FilePlus, Mail, Plus } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -44,7 +44,7 @@ export default function Home() {
     if (!token) {
       router.push('/token');
     }
-  }, []);
+  }, [router]);
 
   const handleAddQuestion = async (values) => {
     setLoading(true);
@@ -74,9 +74,8 @@ export default function Home() {
         <div className="flex justify-end my-4 mb-10">
           <Dialog open={open} onOpenChange={setOpen}>
             <div className="inline-flex gap-3 items-center">
-
               <DialogTrigger asChild>
-                <Button variant="outline" size="icon" className='w-8 h-8'>
+                <Button variant="outline" size="icon" className='w-8 h-8' id='add-question' role='button'>
                   <Plus className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
@@ -104,11 +103,11 @@ export default function Home() {
             </ul>
           ) :
             <div className="flex flex-col justify-center items-center">
-              <p className="text-center mb-4">no questions added yet</p>
+              <p className="text-center mb-4">no questions found</p>
               <div>
                 <Dialog>
                   <DialogTrigger asChild>
-                    <Button className='bg-blue-500'>
+                    <Button className='bg-blue-500' id='add-question' role='button'>
                       <FilePlus className="mr-2 h-4 w-4" /> Add Question
                     </Button>
                   </DialogTrigger>

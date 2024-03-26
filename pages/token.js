@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { getToken } from '@/util/api';
+import { getToken } from '@/utils/api';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';

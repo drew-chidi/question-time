@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-
 import ExistingQuestionsCard from './ExistingQuestionsCard';
-import { deleteQuestion, editQuestion } from '@/util/api';
+import { deleteQuestion, editQuestion } from '@/utils/api';
 
 jest.mock('react-hot-toast', () => ({
     success: jest.fn(),

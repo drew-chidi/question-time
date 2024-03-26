@@ -11,7 +11,7 @@ import {
 import { Pencil, Trash2 } from "lucide-react"
 import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
-import { deleteQuestion, editQuestion } from "@/util/api"
+import { deleteQuestion, editQuestion } from "@/utils/api"
 import toast from "react-hot-toast"
 import { SkeletonCard } from "./SkeletonCard"
 

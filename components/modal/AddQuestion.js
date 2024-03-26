@@ -21,9 +21,6 @@ import { DialogClose } from "@radix-ui/react-dialog"
 
 
 const AddQuestion = ({ onSubmitQuestion, ...props }) => {
-    // const [selectedTab, setSelectedTab] = useState("three");
-    // const [questions, setQuestions] = useState([]);
-    // const [newQuestion, setNewQuestion] = useState('');
     const [loading, setLoading] = useState(false);
 
     const { initialValues } = props
@@ -45,7 +42,6 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
 
 
     const handleAddQuestion = (values) => {
-        console.log('form values', values)
         onSubmitQuestion(values)
     }
 
