@@ -1,28 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Button } from "@/components/ui/button"
 import {
-    Dialog,
     DialogContent,
     DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
-import { useState } from "react"
-import { Formik, Form, FieldArray, Field, ErrorMessage, useFormikContext } from 'formik';
+import { Formik, Form, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { X } from "lucide-react"
-import { DialogClose } from "@radix-ui/react-dialog"
-
-
 
 const AddQuestion = ({ onSubmitQuestion, ...props }) => {
-    const [loading, setLoading] = useState(false);
-
     const { initialValues } = props
 
     const validationSchema = Yup.object().shape({
@@ -39,14 +31,12 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
             .max(5, 'Maximum 5 options allowed')
     });
 
-
-
     const handleAddQuestion = (values) => {
         onSubmitQuestion(values)
     }
 
     return (
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] mx-4">
             <Formik
                 initialValues={{
                     question: initialValues?.question || '',
@@ -103,12 +93,11 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                                                     </div>
                                                 </div>
                                             ))}
+                                            <ErrorMessage name="options" component="div" className="error text-red-600 text-xs -mt-3" />
                                             <div>
-                                                <ErrorMessage name="options" component="div" className="error text-red-600 text-xs" />
                                                 <Button
                                                     type="button"
                                                     onClick={() => insert(values.options.length, '')}
-                                                    // onClick={() => push('')}
                                                     disabled={values.options.length >= 5}
                                                     variant='outline'
                                                 >
@@ -123,8 +112,7 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                         </div>
                         <DialogFooter>
                             <Button type="submit"
-
-                                // disabled={loading} 
+                                disabled={loading}
                                 className={'bg-blue-500'}
                             >
                                 {loading ? 'Adding...' : 'Add Question'}
