@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
+import toast from "react-hot-toast"
+import { Pencil, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -8,13 +10,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Pencil, Trash2 } from "lucide-react"
 import AddQuestion from "../modal/AddQuestion"
 import { Dialog, DialogTrigger } from "../ui/dialog"
 import { deleteQuestion, editQuestion } from "@/utils/api"
-import toast from "react-hot-toast"
 import { SkeletonCard } from "./SkeletonCard"
-
 
 const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading }) => {
     const questionId = data.id

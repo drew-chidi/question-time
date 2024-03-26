@@ -1,17 +1,15 @@
-import Image from "next/image";
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Inter } from "next/font/google";
-import { addQuestion, getQuestions } from "@/utils/api";
-import { FilePlus, Mail, Plus } from "lucide-react"
+import toast from "react-hot-toast";
 
+import { addQuestion, getQuestions } from "@/utils/api";
+import { FilePlus, Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import AddQuestion from "@/components/modal/AddQuestion";
 import ExistingQuestionsCard from "@/components/card/ExistingQuestionsCard";
 import { SkeletonCard } from "@/components/card/SkeletonCard";
-import toast from "react-hot-toast";
-
 
 const inter = Inter({ subsets: ["latin"] });
 

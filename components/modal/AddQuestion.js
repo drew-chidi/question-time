@@ -1,4 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
+import { Formik, Form, FieldArray, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { X } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
 import {
     DialogContent,
@@ -10,9 +14,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "../ui/textarea"
-import { Formik, Form, FieldArray, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { X } from "lucide-react"
 
 const AddQuestion = ({ onSubmitQuestion, ...props }) => {
     const { initialValues } = props
@@ -107,7 +108,6 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                                         </div>
                                     )}
                                 </FieldArray>
-
                             </div>
                         </div>
                         <DialogFooter>
@@ -120,7 +120,6 @@ const AddQuestion = ({ onSubmitQuestion, ...props }) => {
                     </Form>
                 )}
             </Formik>
-
         </DialogContent>
     )
 }

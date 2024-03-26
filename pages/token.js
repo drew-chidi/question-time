@@ -1,11 +1,12 @@
 
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
+
 import { getToken } from '@/utils/api';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
 
 const TokenPage = () => {
     const [email, setEmail] = useState('');
