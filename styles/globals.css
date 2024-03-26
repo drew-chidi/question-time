@@ -78,6 +78,30 @@
   }
 }
 
+@layer utilities {
+  @variants responsive {
+    .masonry {
+      column-gap: 1em;
+      column-count: 1;
+      /* display: flex; Use flexbox */
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      overflow-y: auto;
+    }
+    .masonry-sm {
+      column-gap: 1em;
+      column-count: 2;
+    }
+    .masonry-md {
+      column-gap: 1em;
+      column-count: 3;
+    }
+    .break-inside {
+      break-inside: avoid;
+    }
+  }
+}
+
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -41,9 +41,12 @@ const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading
     const handleDeleteQuestion = async () => {
         try {
             await deleteQuestion(questionId);
+            setIsLoading(true);
             onQuestionChange()
         } catch (error) {
             toast.error('Error deleting question:', error)
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -54,37 +57,36 @@ const ExistingQuestionsCard = ({ data, onQuestionChange, setIsLoading, isLoading
     }
 
     return (
-        <>
-            <Card className="w-[300px]">
-                <CardHeader className='pb-4'>
-                    <CardTitle className='text-base leading-[1.4rem]'>{data.question}</CardTitle>
-                </CardHeader>
-                <CardContent className='pb-4'>
-                    <div className="grid w-full items-center gap-4">
-                        <div className="flex flex-col space-y-1.5">
-                            <ol className="list-decimal list-inside">
-                                {data.options.map((option, index) => (
-                                    <li key={index} className="">{option}</li>
-                                ))}
-                            </ol>
-                        </div>
+        // <Card className="max-w-[300px] h-auto mb-4 overflow-scroll">
+        <Card className="w-[250px] h-[200px] flex flex-col overflow-scroll">
+            <CardHeader className='pb-4'>
+                <CardTitle className='text-base leading-[1.4rem] font-bold'>{`${data.question}`}</CardTitle>
+            </CardHeader>
+            <CardContent className='pb-4 flex-grow flex-1'>
+                <div className="grid w-full items-center gap-4">
+                    <div className="flex flex-col space-y-1.5">
+                        <ol className="list-decimal list-inside">
+                            {data.options.map((option, index) => (
+                                <li key={index} className="">{option}</li>
+                            ))}
+                        </ol>
                     </div>
-                </CardContent>
-                <CardFooter className="flex justify-end gap-1">
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
-                                <Pencil />
-                            </Button>
-                        </DialogTrigger>
-                        <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
-                    </Dialog>
-                    <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
-                        <Trash2 />
-                    </Button>
-                </CardFooter>
-            </Card>
-        </>
+                </div>
+            </CardContent>
+            <CardFooter className="flex justify-end gap-1">
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="ghost" className='p-0 text-blue-500 w-4 h-4'>
+                            <Pencil />
+                        </Button>
+                    </DialogTrigger>
+                    <AddQuestion label='edit' initialValues={{ question: data.question, options: data.options }} onSubmitQuestion={handleEditQuestion} />
+                </Dialog>
+                <Button variant="ghost" className='text-red-500 p-0 w-4 h-4' onClick={handleDeleteQuestion}>
+                    <Trash2 />
+                </Button>
+            </CardFooter>
+        </Card>
     )
 }
 

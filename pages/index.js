@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import AddQuestion from "@/components/modal/AddQuestion";
 import ExistingQuestionsCard from "@/components/card/ExistingQuestionsCard";
+import { SkeletonCard } from "@/components/card/SkeletonCard";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,10 +19,10 @@ export default function Home() {
 
   const router = useRouter();
   const [questions, setQuestions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchQuestionsData = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const questionsData = await getQuestions();
       const questionsArray = Object.keys(questionsData).map(key => ({
@@ -59,7 +60,6 @@ export default function Home() {
         setOpen(false)
       }
     } catch (error) {
-      // console.error('Error adding question:', error);
       toast.error('Error adding question:', error)
     } finally {
       setLoading(false);
@@ -71,8 +71,6 @@ export default function Home() {
       className={`${inter.className}`}
     >
       <div className="mt-10">
-        {/* <h1 className="text-center">Question Management</h1> */}
-        {/* Display existing questions */}
         <div className="flex justify-end my-4 mb-10">
           <Dialog open={open} onOpenChange={setOpen}>
             <div className="inline-flex gap-3 items-center">
@@ -88,7 +86,9 @@ export default function Home() {
           </Dialog>
         </div>
         <div >
-          {questions?.length > 0 ?
+          {loading ? (
+            <SkeletonCard />
+          ) : questions.length > 0 ? (
             <ul>
               <li className="flex gap-4 flex-wrap justify-center">
                 {questions.map(question => (
@@ -97,11 +97,12 @@ export default function Home() {
                     key={question.id}
                     onQuestionChange={fetchQuestionsData}
                     isLoading={loading}
-                    setIsLoading={setLoading} />
+                    setIsLoading={setLoading}
+                  />
                 ))}
               </li>
             </ul>
-            :
+          ) :
             <div className="flex flex-col justify-center items-center">
               <p className="text-center mb-4">no questions added yet</p>
               <div>
